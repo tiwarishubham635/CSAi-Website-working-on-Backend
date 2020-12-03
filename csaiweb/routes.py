@@ -121,10 +121,10 @@ def forum():
 @app.route('/backend/newthread', methods=["POST"])
 def newthread():
     try:
-        author = g.user
         content = request.get_json()
         title = content["title"]
         body = content["body"]
+        author = content["author"]
         time = datetime.datetime.now()
         upvoted = 0
         downvoted = 0
@@ -137,7 +137,7 @@ def newthread():
         db.session.commit()
         return 'New Thread Added', 200
     except:
-        return 'Thread Not Added', 501
+        return jsonify({"errors": {"global": "Invalid credentials"}}), 501
 
 
 @app.route('/backend/editthread', methods=["GET", "PUT"])
@@ -183,9 +183,9 @@ def deletethread(s_no):
         post = Thread.query.get(s_no)
         db.session.delete(post)
         db.session.commit()
-        return 'Thread Deleted!', 200
+        return jsonify({message:'Deleted thread'}), 200
     except:
-        return 'Thread Not Deleted!', 501
+        return jsonify({"errors": {"global": "Tread does not exist"}}), 501
 
 # Upvotes and Downvoted are a array of usernames. Make changes and then also make chnages mentioned on line 37-38 of ThreadDisplay.jsx
 @app.route('/backend/thread/<s_no>', methods=["GET"])

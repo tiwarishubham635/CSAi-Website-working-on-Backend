@@ -13,7 +13,7 @@ export default{
             .then(res => res.data.thread),
         editThread:(details) => axios.put('/backend/editthread',{details})
             .then(res => res.data.thread),
-        deleteThread:(threadId) => axios.delete(`/backend/threads/${threadId}`)
+        deleteThread:(threadId) => axios.delete(`/backend/deletethread/${threadId}`)
             .then(res => res.data.message),
     },
     comment:{

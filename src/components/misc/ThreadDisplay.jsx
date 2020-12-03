@@ -31,7 +31,7 @@ class ThreadDisplay extends Component{
     componentDidMount(){
         console.log("Component did mount started ")
         axios.get(`/backend/thread/${this.props.threadid}`).then(res=>{
-            console.log("Res is = ", res)
+            console.log("Check ThreadData ", res.data[0])
             this.setState({
                 threadData: res.data[0],
                 // If you have chnaged the database, uncomment these 2 and COMMENT the below hardcoded ones
@@ -80,7 +80,7 @@ class ThreadDisplay extends Component{
     }
     delete = () =>{
         return this.props.deleteThread(this.state.threadData.id)
-            .then( () => this.props.history.push("/"))
+            .then( () => this.props.history.push("/forum"))
     }
     submit = (data) =>{
         data.title = this.state.threadData.title
